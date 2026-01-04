@@ -21,5 +21,6 @@ brew "pulumi/tap/pulumi"
 brew "tmux"
 brew "tree"
 brew "wget"
+brew "starship"
 
 cask "font-source-code-pro"

@@ -47,6 +47,11 @@ if type -q uv
     uv generate-shell-completion fish | source
 end
 
+# Starship prompt
+if type -q starship
+    starship init fish | source
+end
+
 # Aliases
 alias ll="ls -lah"
 alias g="git"
