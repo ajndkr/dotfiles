@@ -38,7 +38,15 @@ uv python install 3.12
 
 if command -v fish &> /dev/null; then
     echo "Setting up Fish plugins..."
-    fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+    # Ensure fish_plugins file exists
+    mkdir -p "$HOME/.config/fish"
+    if [ ! -f "$HOME/.config/fish/fish_plugins" ] && [ -f "{{ .chezmoi.sourceDir }}/dot_config/fish/fish_plugins" ]; then
+        cp "{{ .chezmoi.sourceDir }}/dot_config/fish/fish_plugins" "$HOME/.config/fish/fish_plugins"
+    fi
+    # Install fisher and plugins in a single fish session
+    if [ -f "$HOME/.config/fish/fish_plugins" ]; then
+        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; and fisher"
+    fi
 fi
 
 echo "✅ Bootstrap complete!"

@@ -1,5 +1,3 @@
-tap "homebrew/bundle"
-
 brew "git"
 brew "fish"
 brew "fzf"
