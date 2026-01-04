@@ -4,16 +4,16 @@ set -gx EDITOR cursor
 set -gx VISUAL cursor
 
 {{- if .is_macos }}
-eval (/opt/homebrew/bin/brew shellenv)
+if test -f /opt/homebrew/bin/brew
+    eval (/opt/homebrew/bin/brew shellenv)
+end
 {{- end }}
 
 fish_add_path ~/.cargo/bin
 fish_add_path ~/.local/bin
 
-# Source .local/bin/env if it exists
-if test -f ~/.local/bin/env
-    source ~/.local/bin/env
-end
+# Note: .local/bin/env is a bash script and cannot be sourced in fish
+# If you need to use it, run it manually or convert it to a fish script
 
 {{- if .is_macos }}
 # Google Cloud SDK
