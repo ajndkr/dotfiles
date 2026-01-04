@@ -1,0 +1,11 @@
+[data]
+    email = "{{ promptString "email" }}"
+    name = "{{ promptString "full name" }}"
+    signingkey = "{{ promptString "signing key" }}"
+{{- if eq .chezmoi.os "darwin" }}
+    is_macos = true
+    is_linux = false
+{{- else if eq .chezmoi.os "linux" }}
+    is_macos = false
+    is_linux = true
+{{- end }}

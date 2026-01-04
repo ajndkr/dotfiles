@@ -1,0 +1,32 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+	signingkey = {{ .signingkey }}
+
+[commit]
+	gpgsign = true
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[core]
+	excludesfile = ~/.gitignore_global
+	ignorecase = false
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	lg = log --oneline --graph --decorate -20

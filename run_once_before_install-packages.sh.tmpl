@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+
+{{ if .is_macos -}}
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+{{ else if .is_linux -}}
+echo "Linux detected"
+
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew (Linuxbrew)..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Try common Linuxbrew paths
+    if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif [ -f ~/.linuxbrew/bin/brew ]; then
+        eval "$(~/.linuxbrew/bin/brew shellenv)"
+    fi
+fi
+
+{{ end -}}
+
+echo "Installing Homebrew packages..."
+brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile
+
+if command -v rustup &> /dev/null && ! rustup show &> /dev/null; then
+    echo "Initializing Rust..."
+    rustup-init -y
+    source "$HOME/.cargo/env"
+fi
+
+echo "Setting up Python 3.12..."
+uv python install 3.12
+
+if command -v fish &> /dev/null; then
+    echo "Setting up Fish plugins..."
+    fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+fi
+
+echo "✅ Bootstrap complete!"
