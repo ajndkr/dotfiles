@@ -1,5 +1,5 @@
 function gdel --description "Interactive git branch delete"
-    set -l branches (git branch --format='%(refname:short)' | grep -v "^main$" | grep -v "^master$" | fzf --multi --height=40% --prompt="Delete branches (TAB to multi-select): ")
+    set -l branches (git branch | sed 's/^[* ] //' | grep -v '^main$' | grep -v '^master$' | fzf --multi --height=40% --prompt="Delete branches (TAB to multi-select): ")
 
     if test -n "$branches"
         for branch in $branches
