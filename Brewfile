@@ -22,3 +22,5 @@ brew "wget"
 brew "starship"
 
 cask "font-source-code-pro"
+cask "gcloud-cli"
+cask "miniconda"
