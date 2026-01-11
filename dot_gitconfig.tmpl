@@ -7,10 +7,14 @@
 [user]
 	name = {{ .name }}
 	email = {{ .email }}
+	{{- if .signingkey }}
 	signingkey = {{ .signingkey }}
+	{{- end }}
 
+{{- if .signingkey }}
 [commit]
 	gpgsign = true
+{{- end }}
 
 [init]
 	defaultBranch = main
