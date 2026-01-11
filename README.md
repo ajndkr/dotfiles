@@ -119,15 +119,6 @@ Custom Fish functions for common workflows:
 | `gsw`   | Interactive branch switching using fzf                                |
 | `gdel`  | Interactive branch deletion with fzf                                  |
 
-### Conda Commands
-
-| Command   | Description                                                                               |
-| --------- | ----------------------------------------------------------------------------------------- |
-| `cnew`    | Create new conda environment with interactive Python version selection (3.10, 3.11, 3.12) |
-| `cact`    | Interactive conda environment activation using fzf                                        |
-| `cdel`    | Interactive conda environment deletion                                                    |
-| `cdelall` | Delete all conda environments and purge cache                                             |
-
 ## Project Structure
 
 ```
